@@ -1,6 +1,9 @@
-package com.example.demo;
+package com.example.repository;
 
+import com.example.model.PetStoreModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -9,11 +12,12 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 
+@Configuration
 @Repository
 public class PetStoreRepository {
-    //user JdbcTemplate to access database
+    //use JdbcTemplate to access database
+
     @Autowired
     JdbcTemplate jdbcTemplate;
 
@@ -34,18 +38,22 @@ public class PetStoreRepository {
 
     //GET
     public List<PetStoreModel> findAll(){
-        //Get all data from table. Display according to class PetRowmapper.
+        //Get all data from table. Display according to class PetRowMapper.
         return jdbcTemplate.query("select * from tbl_pet_profile", new PetRowMapper(){});
+
     }
 
     //GET (By Id)
-    public Optional<PetStoreModel> findById(String id){
-        //Get data when passing id.
-        return Optional.of(jdbcTemplate.queryForObject("select * from tbl_pet_profile where id = ?", new Object[]{
-                        id
-                },
-                new BeanPropertyRowMapper<PetStoreModel> (PetStoreModel.class)
-        ));
+    public PetStoreModel getPet(String id) {
+        //java exception (try...catch)
+        //Try = errors while it is being executed.
+        //Catch =  if an error occurs in the try block.
+        try {
+            return jdbcTemplate.queryForObject("select * from tbl_pet_profile where id = ?", new Object[]{
+                    id}, new BeanPropertyRowMapper<>(PetStoreModel.class));
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     //DEL
@@ -77,4 +85,5 @@ public class PetStoreRepository {
                 });
 
     }
+
 }

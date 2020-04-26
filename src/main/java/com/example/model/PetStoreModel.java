@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.model;
 
 //Import lombok for getter/setter
 import lombok.*;
