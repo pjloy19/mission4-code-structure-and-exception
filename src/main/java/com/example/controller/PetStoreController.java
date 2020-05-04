@@ -1,19 +1,15 @@
 package com.example.controller;
 
-import com.example.exception.GlobalException;
+import com.example.exception.Exception;
 import com.example.model.PetStoreModel;
 import com.example.repository.PetStoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-@ControllerAdvice
 @RestController
 public class PetStoreController {
     @Autowired //Auto wired Bean dependency thru setter
@@ -30,7 +26,7 @@ public class PetStoreController {
     public ResponseEntity<?> getPet(@PathVariable("id") String id) {
         Optional<PetStoreModel> petStoreModel = Optional.ofNullable(petStoreRepository.getPet(id));
           if (petStoreModel.isEmpty()) {
-              throw new GlobalException(id);
+              throw new Exception(id);
         } else {
             return ResponseEntity.ok(petStoreModel);
         }

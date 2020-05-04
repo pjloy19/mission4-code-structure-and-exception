@@ -2,7 +2,6 @@ package com.example.repository;
 
 import com.example.model.PetStoreModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -13,7 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-@Configuration
 @Repository
 public class PetStoreRepository {
     //use JdbcTemplate to access database

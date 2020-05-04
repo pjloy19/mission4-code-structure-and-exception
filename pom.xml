@@ -11,7 +11,7 @@
 	<groupId>com.example</groupId>
 	<artifactId>misssion4</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>misssion4</name>
+	<name>mission4</name>
 	<description>Create repository</description>
 
 	<properties>
